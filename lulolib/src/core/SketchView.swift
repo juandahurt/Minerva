@@ -17,7 +17,7 @@ class SketchView: MTKView {
         }
         super.init(frame: .zero, device: device)
         
-        renderer.context.device = device
+        renderer.context.graphicalContext.device = device // TODO: I don't like this, I need to find a better way to set this
         renderer.delegate = self
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -27,6 +27,12 @@ class SketchView: MTKView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SketchView {
+    func addPrimitive(_ primitive: Primitive) {
+        renderer.addDrawable(fromPrimitive: primitive)
     }
 }
 
