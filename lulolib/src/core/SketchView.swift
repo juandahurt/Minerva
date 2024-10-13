@@ -8,14 +8,21 @@
 import MetalKit
 
 class SketchView: MTKView {
+    weak var sketch: Sketch?
+    private let renderer = Renderer()
+    
     init() {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("GPU not available")
         }
         super.init(frame: .zero, device: device)
+        
+        renderer.context.device = device
+        renderer.delegate = self
+        
         translatesAutoresizingMaskIntoConstraints = false
         clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1)
-        delegate = self
+        delegate = renderer
     }
     
     required init(coder: NSCoder) {
@@ -23,22 +30,8 @@ class SketchView: MTKView {
     }
 }
 
-extension SketchView: MTKViewDelegate {
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        
-    }
-    
-    func draw(in view: MTKView) {
-        guard let drawable = view.currentDrawable,
-              let commandQueue = device?.makeCommandQueue(),
-              let commandBuffer = commandQueue.makeCommandBuffer(),
-              let renderDescriptor = view.currentRenderPassDescriptor,
-              let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderDescriptor)
-        else {
-            return
-        }
-        renderEncoder.endEncoding()
-        commandBuffer.present(drawable)
-        commandBuffer.commit()
+extension SketchView: RendererDelegate {
+    func onDraw() {
+        sketch?.draw()
     }
 }

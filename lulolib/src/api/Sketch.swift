@@ -8,7 +8,11 @@
 import Foundation
 
 open class Sketch {
-    var view = SketchView()
+    lazy var view: SketchView = {
+        let view = SketchView()
+        view.sketch = self
+        return view
+    }()
     
     public init() {}
     
