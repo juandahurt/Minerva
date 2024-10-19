@@ -35,9 +35,3 @@ class Line: Drawable {
         renderPipelineState = LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
     }
 }
-
-extension Line {
-    static let instance: Line = {
-        Line(device: MTLCreateSystemDefaultDevice()!)
-    }()
-}
