@@ -17,14 +17,16 @@ class SketchView: MTKView {
         }
         super.init(frame: .zero, device: device)
         
-        renderer.context.graphicalContext.device = device // TODO: I don't like this, I need to find a better way to set this
         renderer.delegate = self
         
         translatesAutoresizingMaskIntoConstraints = false
-        clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1)
+        clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1) // TODO: remove
         delegate = renderer
-        colorPixelFormat = .rgba8Unorm
-        preferredFramesPerSecond = 5
+        colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
+        preferredFramesPerSecond = 5 // TODO: check if it really applies this FPS
+        
+        GraphicsContext.load()
+        LibrariesContainer.load()
     }
     
     required init(coder: NSCoder) {

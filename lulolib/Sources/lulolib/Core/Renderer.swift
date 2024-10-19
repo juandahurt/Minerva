@@ -12,7 +12,7 @@ protocol RendererDelegate: AnyObject {
 }
 
 class Renderer: NSObject, MTKViewDelegate {
-    var context = RenderContext()
+    var drawableContext = DrawableContext()
     weak var delegate: RendererDelegate?
     
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
@@ -21,7 +21,7 @@ class Renderer: NSObject, MTKViewDelegate {
     
     func draw(in view: MTKView) {
         guard let drawable = view.currentDrawable,
-              let commandQueue = context.graphicalContext.commandQueue,
+              let commandQueue = GraphicsContext.instance.commandQueue,
               let commandBuffer = commandQueue.makeCommandBuffer(),
               let renderPassDescriptor = view.currentRenderPassDescriptor,
               let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
@@ -30,7 +30,7 @@ class Renderer: NSObject, MTKViewDelegate {
         }
         
         delegate?.onDraw()
-        for drawable in context.drawableContext.thingsToDraw {
+        for drawable in drawableContext.thingsToDraw {
             drawable.render(using: renderEncoder)
         }
         
@@ -40,21 +40,16 @@ class Renderer: NSObject, MTKViewDelegate {
         commandBuffer.waitUntilCompleted()
         
         // clear drawable context
-        context.drawableContext.clear()
-        
-        view.isPaused = true
+        drawableContext.clear()
     }
 }
 
 
 extension Renderer {
     func addDrawable(fromPrimitive primitive: Primitive) {
-        guard let device = context.graphicalContext.device else {
-            fatalError("graphical context does not have a reference to the GPU")
-        }
         switch primitive {
         case .line:
-            context.drawableContext.appendDrawable(Line.instance)
+            drawableContext.appendDrawable(LibrariesContainer.drawableLibrary.getValue(ofKey: .line))
         }
     }
 }

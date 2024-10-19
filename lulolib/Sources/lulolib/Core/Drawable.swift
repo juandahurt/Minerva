@@ -10,7 +10,7 @@ import Metal
 protocol Drawable {
     var indexBuffer: MTLBuffer? { get }
     var vertexBuffer: MTLBuffer? { get }
-    var renderState: MTLRenderPipelineState { get }
+    var renderPipelineState: MTLRenderPipelineState { get }
     var primitiveType: MTLPrimitiveType { get }
     
     func render(using encoder: MTLRenderCommandEncoder)
@@ -24,7 +24,7 @@ extension Drawable {
             offset: 0,
             index: 0
         )
-        encoder.setRenderPipelineState(renderState)
+        encoder.setRenderPipelineState(renderPipelineState)
         encoder.drawIndexedPrimitives(
             type: primitiveType,
             indexCount: 2,

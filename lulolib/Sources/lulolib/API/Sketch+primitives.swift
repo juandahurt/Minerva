@@ -9,7 +9,6 @@ import Foundation
 
 public extension Sketch {
     func line() {
-        // TODO: add line primitive to a list (?)
         view.addPrimitive(.line)
     }
 }

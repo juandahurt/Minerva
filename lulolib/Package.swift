@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "lulolib",
             resources: [
-                .process("core/graphics/shaders")
+                .process("Core/Shaders")
             ]
         ),
     ]
