@@ -23,6 +23,8 @@ class SketchView: MTKView {
         translatesAutoresizingMaskIntoConstraints = false
         clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1)
         delegate = renderer
+        colorPixelFormat = .rgba8Unorm
+        preferredFramesPerSecond = 5
     }
     
     required init(coder: NSCoder) {

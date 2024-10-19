@@ -35,11 +35,14 @@ class Renderer: NSObject, MTKViewDelegate {
         }
         
         renderEncoder.endEncoding()
-        commandBuffer.present(drawable)
+        commandBuffer.present(drawable, atTime: 1.0 / Double(view.preferredFramesPerSecond))
         commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
         
         // clear drawable context
         context.drawableContext.clear()
+        
+        view.isPaused = true
     }
 }
 
@@ -51,7 +54,7 @@ extension Renderer {
         }
         switch primitive {
         case .line:
-            context.drawableContext.appendDrawable(Line(device: device))
+            context.drawableContext.appendDrawable(Line.instance)
         }
     }
 }

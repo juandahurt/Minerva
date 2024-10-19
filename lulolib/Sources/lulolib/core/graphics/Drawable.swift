@@ -8,6 +8,7 @@
 import Metal
 
 protocol Drawable {
+    var indexBuffer: MTLBuffer? { get }
     var vertexBuffer: MTLBuffer? { get }
     var renderState: MTLRenderPipelineState { get }
     var primitiveType: MTLPrimitiveType { get }
@@ -24,10 +25,12 @@ extension Drawable {
             index: 0
         )
         encoder.setRenderPipelineState(renderState)
-        encoder.drawPrimitives(
+        encoder.drawIndexedPrimitives(
             type: primitiveType,
-            vertexStart: 0,
-            vertexCount: 4 // TODO: remove mock value
+            indexCount: 2,
+            indexType: .uint16,
+            indexBuffer: indexBuffer!,
+            indexBufferOffset: 0
         )
     }
 }
