@@ -17,16 +17,26 @@ class SketchView: MTKView {
         }
         super.init(frame: .zero, device: device)
         
-        renderer.context.device = device
         renderer.delegate = self
         
         translatesAutoresizingMaskIntoConstraints = false
-        clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1)
+        clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1) // TODO: remove
         delegate = renderer
+        colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
+        preferredFramesPerSecond = 5 // TODO: check if it really applies this FPS
+        
+        GraphicsContext.load()
+        LibrariesContainer.load()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SketchView {
+    func addPrimitive(_ primitive: Primitive) {
+        renderer.addDrawable(fromPrimitive: primitive)
     }
 }
 
