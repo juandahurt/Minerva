@@ -35,9 +35,8 @@ class Renderer: NSObject, MTKViewDelegate {
         }
         
         renderEncoder.endEncoding()
-        commandBuffer.present(drawable, atTime: 1.0 / Double(view.preferredFramesPerSecond))
+        commandBuffer.present(drawable)
         commandBuffer.commit()
-        commandBuffer.waitUntilCompleted()
         
         // clear drawable context
         drawableContext.clear()

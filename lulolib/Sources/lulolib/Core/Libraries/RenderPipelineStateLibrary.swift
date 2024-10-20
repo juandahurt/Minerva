@@ -39,7 +39,7 @@ extension RenderPipelineStateLibrary {
         vertexDescriptor.attributes[0].offset = 0
         vertexDescriptor.attributes[0].bufferIndex = 0
         
-        vertexDescriptor.layouts[0].stride = MemoryLayout<Float>.stride * 3
+        vertexDescriptor.layouts[0].stride = MemoryLayout<Vertex>.stride
         
         
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
@@ -47,6 +47,7 @@ extension RenderPipelineStateLibrary {
         pipelineDescriptor.vertexDescriptor = vertexDescriptor
         pipelineDescriptor.vertexFunction = vertexFunction
         pipelineDescriptor.fragmentFunction = fragmentFunction
+        pipelineDescriptor.vertexBuffers[0].mutability = .mutable
         
         guard let renderState = try? device?.makeRenderPipelineState(
             descriptor: pipelineDescriptor

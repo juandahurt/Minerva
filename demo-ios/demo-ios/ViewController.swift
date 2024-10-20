@@ -12,6 +12,7 @@ class MySketch: Sketch {
     override func draw() {
 //        print("hi")
         line()
+        line()
     }
 }
 
