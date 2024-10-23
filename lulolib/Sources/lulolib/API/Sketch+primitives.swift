@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Sketch {
-    func line() {
-        view.addPrimitive(.line)
+    func line(_ x1: Float, _ y1: Float, _ x2: Float, _ y2: Float) {
+        view.addPrimitive(.line(x1: x1, y1: y1, x2: x2, y2: y2))
     }
 }

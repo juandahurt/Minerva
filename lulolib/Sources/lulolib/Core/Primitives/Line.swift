@@ -8,6 +8,7 @@
 import Foundation
 import Metal
 
+// TOOD: move to a common header file (?)
 struct Vertex {
     var position: SIMD3<Float> = .zero
 }
@@ -22,16 +23,14 @@ class Line: Drawable {
         0, 1
     ]
     
-    var vertices: [Vertex] = [
-        .init(position: [0,0,0]),
-        .init(position: [0,0.5,0]),
-    ]
+    var vertices: [Vertex] = []
     
-    init(device: MTLDevice) {
+    init(device: MTLDevice, posA: SIMD3<Float>, posB: SIMD3<Float>) {
         indexBuffer = device.makeBuffer(
             bytes: &indices,
             length: MemoryLayout<UInt16>.stride * indices.count
         )
+        vertices = [.init(position: posA), .init(position: posB)]
         vertexBuffer = device.makeBuffer(
             bytes: &vertices,
             length: MemoryLayout<Vertex>.stride * vertices.count
@@ -39,25 +38,7 @@ class Line: Drawable {
         renderPipelineState = LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
     }
     
-    func render(using encoder: any MTLRenderCommandEncoder) {
-        let pointer = vertexBuffer!.contents()
-        let newVertex = Vertex(position: [vertices[1].position.x, 0, 0])
-        vertices[1].position.x += .random(in: 0..<0.1)
-//        pointer.storeBytes(
-//            of: newVertex.position,
-//            toByteOffset: MemoryLayout<Vertex>.stride,
-//            as: SIMD3<Float>.self
-//        )
-        
-        print(pointer.load(as: SIMD3<Float>.self))
-        
-//        let vertices = pointer.load(as: [Vertex].self)
-//        print(vertices)
-        vertexBuffer = GraphicsContext.instance.device.makeBuffer(
-            bytes: &vertices,
-            length: MemoryLayout<Vertex>.stride * vertices.count
-        )
-        
+    func render(using encoder: any MTLRenderCommandEncoder, context: DrawableContext) {
         encoder.setVertexBuffer(
             vertexBuffer,
             offset: 0,
@@ -66,7 +47,7 @@ class Line: Drawable {
         encoder.setRenderPipelineState(renderPipelineState)
         encoder.drawIndexedPrimitives(
             type: primitiveType,
-            indexCount: 2,
+            indexCount: indices.count,
             indexType: .uint16,
             indexBuffer: indexBuffer!,
             indexBufferOffset: 0

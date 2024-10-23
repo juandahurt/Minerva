@@ -17,15 +17,21 @@ typedef struct {
     float3 color;
 } VertexOut;
 
-vertex VertexOut vertex_shader(VertexIn in [[stage_in]])
+struct Uniforms {
+    float4x4 modelMatrix;
+    float4x4 viewMatrix;
+    float4x4 projectionMatrix;
+};
+
+vertex VertexOut vertex_shader(VertexIn in [[stage_in]], constant Uniforms& uniforms [[buffer(10)]])
 {
     VertexOut out {
-        .position = float4(in.position, 1),
+        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * float4(in.position, 1),
         .color = 0
     };
     return out;
 }
 
 fragment float4 fragment_shader(VertexOut out [[stage_in]]) {
-    return float4(0, 1, 1, 1);
+    return float4(1, 1, 1, 1);
 }

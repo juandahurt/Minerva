@@ -9,10 +9,15 @@ import UIKit
 import lulolib
 
 class MySketch: Sketch {
+    var x: Float = 0
+    var y: Float = 0
+    
     override func draw() {
-//        print("hi")
-        line()
-        line()
+        line(x, 80, 100, y)
+        line(250, y, 230, y)
+        
+        x = .random(in: 0...400)
+        y = .random(in: 0...450)
     }
 }
 
