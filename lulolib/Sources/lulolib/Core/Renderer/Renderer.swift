@@ -73,48 +73,7 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // clear drawable context
         drawableContext.clear()
-    }
-}
-
-extension float4x4 {
-    init(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) {
-        let X = simd_float4(2 / (right - left), 0, 0, 0)
-        let Y = simd_float4(2 / (top - bottom), 0, 0, 0)
-        let Z = simd_float4(0, 0, 1 / (far - near), 0)
-        let W = simd_float4(
-            (left + right) / (left - right),
-            (top + bottom) / (bottom - top),
-            near / (near - far),
-            1)
         
-        self.init()
-        columns = (X, Y, Z, W)
-    }
-    
-    init(orthographic rect: CGRect, near: Float, far: Float) {
-        let left = Float(rect.origin.x)
-        let right = Float(rect.origin.x + rect.width)
-        let top = Float(rect.origin.y)
-        let bottom = Float(rect.height)
-        let X = float4(2 / (right - left), 0, 0, 0)
-        let Y = float4(0, 2 / (top - bottom), 0, 0)
-        let Z = float4(0, 0, 1 / (far - near), 0)
-        let W = float4(
-            (left + right) / (left - right),
-            (top + bottom) / (bottom - top),
-            near / (near - far),
-            1)
-        self.init()
-        columns = (X, Y, Z, W)
-    }
-    
-    init(translation: float3) {
-        let matrix = float4x4(
-            [            1,             0,             0, 0],
-            [            0,             1,             0, 0],
-            [            0,             0,             1, 0],
-            [translation.x, translation.y, translation.z, 1]
-        )
-        self = matrix
+//        view.isPaused = true
     }
 }

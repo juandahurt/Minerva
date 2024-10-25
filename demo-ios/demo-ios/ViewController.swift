@@ -13,8 +13,8 @@ class MySketch1: Sketch {
     var y: Float = 0
     
     override func draw() {
-        line(x, 80, 100, y)
-        line(250, y, 230, y)
+//        line(x, 80, 100, y)
+//        line(250, y, 230, y)
         
         x = .random(in: 0...400)
         y = .random(in: 0...450)
@@ -26,7 +26,9 @@ class MySketch2: Sketch {
     var y: Float = 0
     
     override func draw() {
-        line(0, 0, 200, 400)
+        for _ in 0..<2 {
+            line(0, 0, 200, 400)
+        }
     }
 }
 
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
         container1.translatesAutoresizingMaskIntoConstraints = false
         container1.addSketch(sketch1)
         stackView.addArrangedSubview(container1)
-//
+        
         stackView.addArrangedSubview(container2)
         container2.addSketch(sketch2)
         container2.translatesAutoresizingMaskIntoConstraints = false
