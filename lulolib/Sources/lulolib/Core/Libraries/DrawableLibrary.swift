@@ -13,7 +13,7 @@ class DrawableLibrary: Library {
     }
     
     func load() {
-        dictionary[.line] = Line(device: GraphicsContext.instance.device)
+//        dictionary[.line] = Line(device: GraphicsContext.instance.device)
     }
     
     func getValue(ofKey key: DrawableType) -> Drawable {

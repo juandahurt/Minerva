@@ -13,22 +13,13 @@ class MySketch1: Sketch {
     var y: Float = 0
     
     override func draw() {
-//        line(x, 80, 100, y)
-//        line(250, y, 230, y)
-        
-        x = .random(in: 0...400)
-        y = .random(in: 0...450)
+        triangle(30, 75, 58, 20, 86, 75)
     }
 }
 
 class MySketch2: Sketch {
-    var x: Float = 0
-    var y: Float = 0
-    
     override func draw() {
-        for _ in 0..<2 {
-            line(0, 0, 200, 400)
-        }
+        line(0, 100, 120, 50)
     }
 }
 
