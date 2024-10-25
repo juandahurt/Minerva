@@ -11,4 +11,5 @@ protocol Drawable {
     var primitiveType: MTLPrimitiveType { get }
     var offset: Int { get }
     var vertexCount: Int { get }
+    var vertices: [Vertex] { get }
 }
