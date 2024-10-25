@@ -25,6 +25,7 @@ class GraphicsContext {
 }
 
 class DrawableContext {
+    var canvasSize: CGSize = .zero
     private(set) var thingsToDraw: [Drawable] = []
     
     func appendDrawable(_ drawable: Drawable) {

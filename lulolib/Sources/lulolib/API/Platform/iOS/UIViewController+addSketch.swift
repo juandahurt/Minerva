@@ -11,8 +11,19 @@ import UIKit
 
 public extension UIViewController {
     func addSketch(_ sketch: Sketch) {
-        view.addSubview(sketch.view)
-        sketch.view.frame = view.bounds
+        view.addSketch(sketch)
+    }
+}
+
+public extension UIView {
+    func addSketch(_ sketch: Sketch) {
+        addSubview(sketch.view)
+        NSLayoutConstraint.activate([
+            sketch.view.topAnchor.constraint(equalTo: topAnchor),
+            sketch.view.bottomAnchor.constraint(equalTo: bottomAnchor),
+            sketch.view.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sketch.view.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
     }
 }
 #endif

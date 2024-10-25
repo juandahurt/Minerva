@@ -13,24 +13,5 @@ protocol Drawable {
     var renderPipelineState: MTLRenderPipelineState { get }
     var primitiveType: MTLPrimitiveType { get }
     
-    func render(using encoder: MTLRenderCommandEncoder)
-}
-
-
-extension Drawable {
-    func render(using encoder: MTLRenderCommandEncoder) {
-        encoder.setVertexBuffer(
-            vertexBuffer,
-            offset: 0,
-            index: 0
-        )
-        encoder.setRenderPipelineState(renderPipelineState)
-        encoder.drawIndexedPrimitives(
-            type: primitiveType,
-            indexCount: 2,
-            indexType: .uint16,
-            indexBuffer: indexBuffer!,
-            indexBufferOffset: 0
-        )
-    }
+    func render(using encoder: MTLRenderCommandEncoder, context: DrawableContext)
 }
