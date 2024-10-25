@@ -8,10 +8,7 @@
 import Metal
 
 protocol Drawable {
-    var indexBuffer: MTLBuffer? { get }
-    var vertexBuffer: MTLBuffer? { get }
-    var renderPipelineState: MTLRenderPipelineState { get }
     var primitiveType: MTLPrimitiveType { get }
-    
-    func render(using encoder: MTLRenderCommandEncoder, context: DrawableContext)
+    var offset: Int { get }
+    var vertexCount: Int { get }
 }

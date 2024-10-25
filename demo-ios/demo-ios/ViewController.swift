@@ -13,7 +13,14 @@ class MySketch1: Sketch {
     var y: Float = 0
     
     override func draw() {
-        triangle(30, 75, 58, 20, 86, 75)
+        line(0, 100, 120, 50)
+        line(54, 400, 120, 50)
+        
+        triangle(100, 75, 40, 20, 70, 75)
+        
+        line(200, 400, 500, 100)
+        
+        x += 10
     }
 }
 
@@ -46,9 +53,9 @@ class ViewController: UIViewController {
         container1.addSketch(sketch1)
         stackView.addArrangedSubview(container1)
         
-        stackView.addArrangedSubview(container2)
-        container2.addSketch(sketch2)
-        container2.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.addArrangedSubview(container2)
+//        container2.addSketch(sketch2)
+//        container2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

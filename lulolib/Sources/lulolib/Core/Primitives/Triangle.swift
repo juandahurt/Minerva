@@ -9,12 +9,10 @@ import simd
 import Metal
 
 class Triangle: Drawable {
-    var indexBuffer: (any MTLBuffer)?
-    var vertexBuffer: (any MTLBuffer)?
-    var renderPipelineState: any MTLRenderPipelineState = LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
     var primitiveType: MTLPrimitiveType = .triangle
-    
-    private var vertices: [Vertex] = []
+    var offset: Int = 0
+    var vertexCount: Int = 3
+    var vertices: [Vertex] = []
     
     init(pointA: simd_float3, pointB: simd_float3, pointC: simd_float3) {
         vertices = [
@@ -22,23 +20,6 @@ class Triangle: Drawable {
             .init(position: pointB),
             .init(position: pointC),
         ]
-        vertexBuffer = GraphicsContext.instance.device.makeBuffer(
-            bytes: &vertices,
-            length: MemoryLayout<Vertex>.stride * vertices.count
-        )
-    }
-    
-    func render(using encoder: any MTLRenderCommandEncoder, context: DrawableContext) {
-        encoder.setVertexBuffer(
-            vertexBuffer,
-            offset: 0,
-            index: 0
-        )
-        encoder.setRenderPipelineState(renderPipelineState)
-        encoder.drawPrimitives(
-            type: primitiveType,
-            vertexStart: 0,
-            vertexCount: 3
-        )
+        offset = MemoryLayout<Vertex>.stride * vertexCount
     }
 }
