@@ -5,6 +5,7 @@
 //  Created by Juan Hurtado on 12/10/24.
 //
 
+import Combine
 import MetalKit
 
 class SketchView: MTKView {
@@ -23,7 +24,7 @@ class SketchView: MTKView {
         clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1) // TODO: remove
         delegate = renderer
         colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
-        preferredFramesPerSecond = 5 // TODO: check if it really applies this FPS
+        preferredFramesPerSecond = 10
         
         GraphicsContext.load()
         LibrariesContainer.load()

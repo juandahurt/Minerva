@@ -15,6 +15,13 @@ extension Renderer {
                 posB: [x2, y2, 0]
             )
             drawableContext.appendDrawable(line)
+        case .triangle(let x1, let y1, let x2, let y2, let x3, let y3):
+            let triangle = Triangle(
+                pointA: [x1, y1, 0],
+                pointB: [x2, y2, 0],
+                pointC: [x3, y3, 0]
+            )
+            drawableContext.appendDrawable(triangle)
         }
     }
 }
