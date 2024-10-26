@@ -21,7 +21,15 @@ class Renderer: NSObject, MTKViewDelegate {
     var drawableContext = DrawableContext()
     weak var delegate: RendererDelegate?
     
+    var vertexBuffer: MTLBuffer?
+    var currentOffset = 0
+    
     var uniforms = Uniforms()
+    
+    override init() {
+        super.init()
+        vertexBuffer = GraphicsContext.instance.device.makeBuffer(length: 256)
+    }
     
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         drawableContext.canvasSize = size
@@ -61,10 +69,19 @@ class Renderer: NSObject, MTKViewDelegate {
             length: MemoryLayout<Uniforms>.stride,
             index: 10
         )
-        
+        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+        renderEncoder.setRenderPipelineState(
+            LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
+        )
         delegate?.onDraw()
+        var currentVertex = 0
         for drawable in drawableContext.thingsToDraw {
-            drawable.render(using: renderEncoder, context: drawableContext)
+            renderEncoder.drawPrimitives(
+                type: drawable.primitiveType,
+                vertexStart: currentVertex,
+                vertexCount: drawable.vertexCount
+            )
+            currentVertex += drawable.vertexCount
         }
         
         renderEncoder.endEncoding()
@@ -73,7 +90,6 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // clear drawable context
         drawableContext.clear()
-        
-//        view.isPaused = true
+        currentOffset = 0
     }
 }

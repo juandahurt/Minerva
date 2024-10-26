@@ -10,12 +10,18 @@ import MetalKit
 
 class SketchView: MTKView {
     weak var sketch: Sketch?
-    private let renderer = Renderer()
+    private let renderer: Renderer
     
     init() {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("GPU not available")
         }
+        
+        GraphicsContext.load()
+        LibrariesContainer.load()
+        
+        renderer = Renderer()
+        
         super.init(frame: .zero, device: device)
         
         renderer.delegate = self
@@ -25,9 +31,6 @@ class SketchView: MTKView {
         delegate = renderer
         colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
         preferredFramesPerSecond = 10
-        
-        GraphicsContext.load()
-        LibrariesContainer.load()
     }
     
     required init(coder: NSCoder) {
