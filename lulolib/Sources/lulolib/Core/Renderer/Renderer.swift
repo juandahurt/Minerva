@@ -81,14 +81,17 @@ class Renderer: NSObject, MTKViewDelegate {
             LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
         )
         delegate?.onDraw()
-        var currentVertex = 0
-        for drawable in drawableContext.thingsToDraw {
-            renderEncoder.drawPrimitives(
-                type: drawable.primitiveType,
-                vertexStart: currentVertex,
-                vertexCount: drawable.vertexCount
-            )
-            currentVertex += drawable.vertexCount
+        
+        for drawingGroup in drawableContext.drawingGroups {
+            var currentVertex = 0
+            for drawable in drawingGroup.drawables {
+                renderEncoder.drawPrimitives(
+                    type: drawable.primitiveType,
+                    vertexStart: currentVertex,
+                    vertexCount: drawable.vertexCount
+                )
+                currentVertex += drawable.vertexCount
+            }
         }
         
         renderEncoder.endEncoding()
