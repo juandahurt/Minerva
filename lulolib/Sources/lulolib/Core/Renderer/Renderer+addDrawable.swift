@@ -24,6 +24,13 @@ extension Renderer {
                 pointB: [x2, y2, 0],
                 pointC: [x3, y3, 0]
             )
+        case .rect(let x, let y, let w, let h):
+            drawable = Rect(
+                x: x,
+                y: y,
+                w: w,
+                h: h
+            )
         }
         
         vertexBuffer?.copyBytes(

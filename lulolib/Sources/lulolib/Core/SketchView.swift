@@ -30,7 +30,7 @@ class SketchView: MTKView {
         clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1) // TODO: remove
         delegate = renderer
         colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
-        preferredFramesPerSecond = 10
+        preferredFramesPerSecond = 60
     }
     
     required init(coder: NSCoder) {
@@ -45,7 +45,16 @@ extension SketchView {
 }
 
 extension SketchView: RendererDelegate {
+    func viewSizeChanged(size: CGSize) {
+        sketch?.height = Float(size.height)
+        sketch?.width = Float(size.width)
+    }
+    
     func onDraw() {
         sketch?.draw()
+    }
+    
+    func onSetup() {
+        sketch?.setup()
     }
 }

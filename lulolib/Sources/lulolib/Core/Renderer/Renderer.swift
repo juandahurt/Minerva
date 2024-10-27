@@ -8,7 +8,9 @@
 import MetalKit
 
 protocol RendererDelegate: AnyObject {
+    func onSetup()
     func onDraw()
+    func viewSizeChanged(size: CGSize)
 }
 
 struct Uniforms {
@@ -19,20 +21,24 @@ struct Uniforms {
 
 class Renderer: NSObject, MTKViewDelegate {
     var drawableContext = DrawableContext()
-    weak var delegate: RendererDelegate?
     
     var vertexBuffer: MTLBuffer?
     var currentOffset = 0
     
-    var uniforms = Uniforms()
+    weak var delegate: RendererDelegate?
+    
+    private var uniforms = Uniforms()
+    private var setupHasBeenCalled = false
     
     override init() {
         super.init()
-        vertexBuffer = GraphicsContext.instance.device.makeBuffer(length: 256)
+        let size = GraphicsContext.instance.device.maxBufferLength
+        vertexBuffer = GraphicsContext.instance.device.makeBuffer(length: size)
     }
     
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         drawableContext.canvasSize = size
+        delegate?.viewSizeChanged(size: size)
     }
     
     func draw(in view: MTKView) {
@@ -45,13 +51,14 @@ class Renderer: NSObject, MTKViewDelegate {
             return
         }
         
+        if !setupHasBeenCalled { delegate?.onSetup(); setupHasBeenCalled = true }
+        
         let canvasSize = drawableContext.canvasSize
-        let aspect = canvasSize.width / canvasSize.height
         let rect = CGRect(
             x: 0,
             y: 0,
             width: canvasSize.width,
-            height: aspect * canvasSize.height
+            height: canvasSize.height
         )
         let projectionMatrix = float4x4(
             orthographic: rect,
