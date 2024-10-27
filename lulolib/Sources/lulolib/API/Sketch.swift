@@ -8,6 +8,11 @@
 import Foundation
 
 open class Sketch {
+    /// Canvas width
+    public var width: Float = 0
+    /// Canvas height
+    public var height: Float = 0
+    
     lazy var view: SketchView = {
         let view = SketchView()
         view.sketch = self

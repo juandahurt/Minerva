@@ -24,9 +24,66 @@ class MySketch1: Sketch {
     }
 }
 
+struct Particle {
+    var velX: Float = -1
+    var velY: Float = 2
+    
+    var x: Float
+    var y: Float
+    
+    var width: Float
+    var height: Float
+    
+    init(canvasWidth: Float, canvasHeight: Float) {
+        self.width = canvasWidth
+        self.height = canvasHeight
+        
+        x = 10
+        y = 10
+        
+        velX = .random(in: -10...10)
+        velY = .random(in: -10...10)
+    }
+    
+    mutating func update() {
+        if x > width {
+            velX *= -1
+        }
+        if x < 0 {
+            velX *= -1
+        }
+        
+        if y < 0 {
+            velY *= -1
+        }
+        if y > height {
+            velY *= -1
+        }
+        
+        x += velX
+        y += velY
+    }
+}
+
 class MySketch2: Sketch {
+    var x: Float = 30
+    var y: Float = 0
+    
+    let numParticles = 150
+    var particles: [Particle] = []
+    
+    
+    override func setup() {
+        for _ in 0..<numParticles {
+            particles.append(.init(canvasWidth: width, canvasHeight: height))
+        }
+    }
+    
     override func draw() {
-        line(0, 100, 120, 50)
+        for i in particles.indices {
+            particles[i].update()
+            rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
+        }
     }
 }
 
@@ -49,13 +106,13 @@ class ViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        container1.translatesAutoresizingMaskIntoConstraints = false
-        container1.addSketch(sketch1)
-        stackView.addArrangedSubview(container1)
+//        container1.translatesAutoresizingMaskIntoConstraints = false
+//        container1.addSketch(sketch1)
+//        stackView.addArrangedSubview(container1)
         
-//        stackView.addArrangedSubview(container2)
-//        container2.addSketch(sketch2)
-//        container2.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(container2)
+        container2.addSketch(sketch2)
+        container2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
