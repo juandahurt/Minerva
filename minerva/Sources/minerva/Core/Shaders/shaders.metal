@@ -23,15 +23,15 @@ struct Uniforms {
     float4x4 projectionMatrix;
 };
 
-vertex VertexOut vertex_shader(VertexIn in [[stage_in]], constant Uniforms& uniforms [[buffer(10)]])
+vertex VertexOut vertex_shader(VertexIn in [[stage_in]], constant Uniforms& uniforms [[buffer(10)]], constant float3& color [[buffer(11)]])
 {
     VertexOut out {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * float4(in.position, 1),
-        .color = 0
+        .color = color
     };
     return out;
 }
 
 fragment float4 fragment_shader(VertexOut out [[stage_in]]) {
-    return float4(1, 1, 1, 1);
+    return float4(out.color, 1);
 }

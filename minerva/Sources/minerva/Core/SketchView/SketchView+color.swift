@@ -16,4 +16,12 @@ extension SketchView {
             )
         )
     }
+    
+    func setFillColor(_ r: Float, _ g: Float, _ b: Float) {
+        renderer.setFillColor([
+            r / 255,
+            g / 255,
+            b / 255
+        ])
+    }
 }
