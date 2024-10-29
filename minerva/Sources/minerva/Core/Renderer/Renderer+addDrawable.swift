@@ -14,7 +14,6 @@ extension Renderer {
         switch primitive {
         case .line(let x1, let y1, let x2, let y2):
             drawable = Line(
-                device: GraphicsContext.instance.device,
                 posA: [x1, y1, 0],
                 posB: [x2, y2, 0]
             )

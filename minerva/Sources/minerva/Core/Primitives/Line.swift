@@ -20,7 +20,7 @@ class Line: Drawable {
     
     var vertices: [Vertex] = []
     
-    init(device: MTLDevice, posA: SIMD3<Float>, posB: SIMD3<Float>) {
+    init(posA: SIMD3<Float>, posB: SIMD3<Float>) {
         vertices = [.init(position: posA), .init(position: posB)]
         offset = MemoryLayout<Vertex>.stride * vertexCount
     }

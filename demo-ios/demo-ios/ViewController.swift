@@ -69,11 +69,12 @@ class MySketch2: Sketch {
     var x: Float = 30
     var y: Float = 0
     
-    let numParticles = 150
+    let numParticles = 10
     var particles: [Particle] = []
     
     
     override func setup() {
+        background(155, 130, 29)
         for _ in 0..<numParticles {
             particles.append(.init(canvasWidth: width, canvasHeight: height))
         }

@@ -10,7 +10,7 @@ import MetalKit
 
 class SketchView: MTKView {
     weak var sketch: Sketch?
-    private let renderer: Renderer
+    let renderer: Renderer
     
     init() {
         guard let device = MTLCreateSystemDefaultDevice() else {
@@ -35,12 +35,6 @@ class SketchView: MTKView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension SketchView {
-    func addPrimitive(_ primitive: Primitive) {
-        renderer.addDrawable(fromPrimitive: primitive)
     }
 }
 

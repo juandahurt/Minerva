@@ -51,6 +51,8 @@ class Renderer: NSObject, MTKViewDelegate {
             return
         }
         
+        view.clearColor = drawableContext.backgroundColor
+        
         if !setupHasBeenCalled { delegate?.onSetup(); setupHasBeenCalled = true }
         
         let canvasSize = drawableContext.canvasSize
