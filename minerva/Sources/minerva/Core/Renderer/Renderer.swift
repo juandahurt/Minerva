@@ -39,6 +39,20 @@ class Renderer: NSObject, MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         drawableContext.canvasSize = size
         delegate?.viewSizeChanged(size: size)
+        
+        let rect = CGRect(
+            x: 0,
+            y: 0,
+            width: size.width,
+            height: size.height
+        )
+        let projectionMatrix = float4x4(
+            orthographic: rect,
+            near: 0,
+            far: 10
+        )
+        
+        uniforms.projectionMatrix = projectionMatrix
     }
     
     func draw(in view: MTKView) {
@@ -53,22 +67,10 @@ class Renderer: NSObject, MTKViewDelegate {
         
         if !setupHasBeenCalled { delegate?.onSetup(); setupHasBeenCalled = true }
         
-        let canvasSize = drawableContext.canvasSize
-        let rect = CGRect(
-            x: 0,
-            y: 0,
-            width: canvasSize.width,
-            height: canvasSize.height
-        )
-        let projectionMatrix = float4x4(
-            orthographic: rect,
-            near: 0,
-            far: 10
-        )
+        view.clearColor = drawableContext.backgroundColor
         
         let viewMatrix = float4x4(translation: [0, -1, 0])
         
-        uniforms.projectionMatrix = projectionMatrix
         uniforms.viewMatrix = viewMatrix
         
         renderEncoder.setVertexBytes(
@@ -76,6 +78,7 @@ class Renderer: NSObject, MTKViewDelegate {
             length: MemoryLayout<Uniforms>.stride,
             index: 10
         )
+    
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder.setRenderPipelineState(
             LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
@@ -83,6 +86,13 @@ class Renderer: NSObject, MTKViewDelegate {
         delegate?.onDraw()
         
         for drawingGroup in drawableContext.drawingGroups {
+            // TODO: make sure the line primitive doesn't use the fill color
+            renderEncoder.setVertexBytes(
+                &drawableContext.currentDrawingGroup.fillColor,
+                length: MemoryLayout<SIMD3<Float>>.stride,
+                index: 11
+            )
+            
             var currentVertex = 0
             for drawable in drawingGroup.drawables {
                 renderEncoder.drawPrimitives(

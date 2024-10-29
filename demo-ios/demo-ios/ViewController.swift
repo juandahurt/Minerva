@@ -69,17 +69,19 @@ class MySketch2: Sketch {
     var x: Float = 30
     var y: Float = 0
     
-    let numParticles = 150
+    let numParticles = 10
     var particles: [Particle] = []
     
     
     override func setup() {
+        background(40, 130, 29)
         for _ in 0..<numParticles {
             particles.append(.init(canvasWidth: width, canvasHeight: height))
         }
     }
     
     override func draw() {
+        fill(150, 200, 100)
         for i in particles.indices {
             particles[i].update()
             rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
@@ -106,9 +108,9 @@ class ViewController: UIViewController {
         
         view.addSubview(stackView)
         
-//        container1.translatesAutoresizingMaskIntoConstraints = false
-//        container1.addSketch(sketch1)
-//        stackView.addArrangedSubview(container1)
+        container1.translatesAutoresizingMaskIntoConstraints = false
+        container1.addSketch(sketch1)
+        stackView.addArrangedSubview(container1)
         
         stackView.addArrangedSubview(container2)
         container2.addSketch(sketch2)

@@ -26,7 +26,7 @@ class GraphicsContext {
 
 class DrawingGroup {
     var drawables: [Drawable] = []
-    var backgroundColor: simd_float3 = .zero
+    var fillColor: simd_float3 = .zero
     
     func appendDrawable(_ drawable: Drawable) {
         drawables.append(drawable)
@@ -35,6 +35,8 @@ class DrawingGroup {
 
 class DrawableContext {
     var drawingGroups: [DrawingGroup] = []
+    
+    var backgroundColor: MTLClearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
     
     var canvasSize: CGSize = .zero
     var currentDrawingGroup: DrawingGroup {
