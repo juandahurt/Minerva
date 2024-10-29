@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FA5AB662CD14130005EB826 /* Minerva in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA5AB652CD14130005EB826 /* Minerva */; };
 		2FC1AA252CBAF94D00537BCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1AA242CBAF94D00537BCF /* AppDelegate.swift */; };
 		2FC1AA272CBAF94D00537BCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1AA262CBAF94D00537BCF /* SceneDelegate.swift */; };
 		2FC1AA292CBAF94D00537BCF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1AA282CBAF94D00537BCF /* ViewController.swift */; };
 		2FC1AA2C2CBAF94D00537BCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC1AA2A2CBAF94D00537BCF /* Main.storyboard */; };
 		2FC1AA2E2CBAF94E00537BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC1AA2D2CBAF94E00537BCF /* Assets.xcassets */; };
 		2FC1AA312CBAF94E00537BCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC1AA2F2CBAF94E00537BCF /* LaunchScreen.storyboard */; };
-		2FC1AA3A2CBAF9DB00537BCF /* lulolib in Frameworks */ = {isa = PBXBuildFile; productRef = 2FC1AA392CBAF9DB00537BCF /* lulolib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,17 +32,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FC1AA3A2CBAF9DB00537BCF /* lulolib in Frameworks */,
+				2FA5AB662CD14130005EB826 /* Minerva in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FA5AB642CD14130005EB826 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2FC1AA182CBAF94D00537BCF = {
 			isa = PBXGroup;
 			children = (
 				2FC1AA232CBAF94D00537BCF /* demo-ios */,
+				2FA5AB642CD14130005EB826 /* Frameworks */,
 				2FC1AA222CBAF94D00537BCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,7 +94,7 @@
 			);
 			name = "demo-ios";
 			packageProductDependencies = (
-				2FC1AA392CBAF9DB00537BCF /* lulolib */,
+				2FA5AB652CD14130005EB826 /* Minerva */,
 			);
 			productName = "demo-ios";
 			productReference = 2FC1AA212CBAF94D00537BCF /* demo-ios.app */;
@@ -117,7 +125,7 @@
 			);
 			mainGroup = 2FC1AA182CBAF94D00537BCF;
 			packageReferences = (
-				2FC1AA382CBAF9DB00537BCF /* XCLocalSwiftPackageReference "../lulolib" */,
+				2FA5AB612CD13EDE005EB826 /* XCLocalSwiftPackageReference "../minerva" */,
 			);
 			productRefGroup = 2FC1AA222CBAF94D00537BCF /* Products */;
 			projectDirPath = "";
@@ -373,16 +381,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2FC1AA382CBAF9DB00537BCF /* XCLocalSwiftPackageReference "../lulolib" */ = {
+		2FA5AB612CD13EDE005EB826 /* XCLocalSwiftPackageReference "../minerva" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../lulolib;
+			relativePath = ../minerva;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2FC1AA392CBAF9DB00537BCF /* lulolib */ = {
+		2FA5AB652CD14130005EB826 /* Minerva */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = lulolib;
+			productName = Minerva;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,6 +1,6 @@
 //
 //  DrawableLibrary.swift
-//  lulolib
+//  Minerva
 //
 //  Created by Juan Hurtado on 19/10/24.
 //

@@ -5,6 +5,6 @@
       location = "group:demo-ios/demo-ios.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:lulolib">
+      location = "group:Minerva">
    </FileRef>
 </Workspace>

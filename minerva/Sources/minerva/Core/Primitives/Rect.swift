@@ -1,6 +1,6 @@
 //
 //  Rect.swift
-//  lulolib
+//  Minerva
 //
 //  Created by Juan Hurtado on 26/10/24.
 //
