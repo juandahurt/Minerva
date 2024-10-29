@@ -1,6 +1,6 @@
 //
 //  UnsafeMutableRawPointer+copyMemory.swift
-//  lulolib
+//  Minerva
 //
 //  Created by Juan Hurtado on 25/10/24.
 //

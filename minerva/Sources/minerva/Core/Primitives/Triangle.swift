@@ -1,6 +1,6 @@
 //
 //  Triangle.swift
-//  lulolib
+//  Minerva
 //
 //  Created by Juan Hurtado on 24/10/24.
 //

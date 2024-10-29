@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import lulolib
+import Minerva
 
 class MySketch1: Sketch {
     var x: Float = 0
