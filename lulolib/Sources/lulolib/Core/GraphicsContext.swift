@@ -5,7 +5,7 @@
 //  Created by Juan Hurtado on 13/10/24.
 //
 
-import Metal
+import MetalKit
 
 class GraphicsContext {
     private init() {}
@@ -24,13 +24,31 @@ class GraphicsContext {
     }
 }
 
-class DrawableContext {
-    var canvasSize: CGSize = .zero
-    private(set) var thingsToDraw: [Drawable] = []
+class DrawingGroup {
+    var drawables: [Drawable] = []
+    var backgroundColor: simd_float3 = .zero
     
     func appendDrawable(_ drawable: Drawable) {
-        thingsToDraw.append(drawable)
+        drawables.append(drawable)
+    }
+}
+
+class DrawableContext {
+    var drawingGroups: [DrawingGroup] = []
+    
+    var canvasSize: CGSize = .zero
+    var currentDrawingGroup: DrawingGroup {
+        get {
+            if drawingGroups.isEmpty {
+                drawingGroups.append(.init())
+            }
+            return drawingGroups[0] // TODO: add guard here?
+        }
+        set {}
     }
     
-    func clear() { thingsToDraw.removeAll() }
+    func clear() {
+        drawingGroups.removeAll()
+    }
 }
+

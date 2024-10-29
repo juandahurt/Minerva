@@ -39,6 +39,6 @@ extension Renderer {
             atOffset: currentOffset
         )
         currentOffset += drawable.offset
-        drawableContext.appendDrawable(drawable)
+        drawableContext.currentDrawingGroup.appendDrawable(drawable)
     }
 }
