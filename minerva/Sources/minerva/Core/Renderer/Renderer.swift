@@ -86,6 +86,7 @@ class Renderer: NSObject, MTKViewDelegate {
         delegate?.onDraw()
         
         for drawingGroup in drawableContext.drawingGroups {
+            // TODO: make sure the line primitive doesn't use the fill color
             renderEncoder.setVertexBytes(
                 &drawableContext.currentDrawingGroup.fillColor,
                 length: MemoryLayout<SIMD3<Float>>.stride,
