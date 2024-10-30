@@ -8,7 +8,7 @@
 import simd
 
 extension Renderer {
-    func addDrawable(fromCommand command: ShapeCommand) {
+    func updateVertexBuffer(usingShape command: ShapeCommand) -> Drawable {
         let drawable: Drawable
         
         switch command {
@@ -17,19 +17,19 @@ extension Renderer {
                 posA: [x1, y1, 0],
                 posB: [x2, y2, 0]
             )
-//        case .triangle(let x1, let y1, let x2, let y2, let x3, let y3):
-//            drawable = Triangle(
-//                pointA: [x1, y1, 0],
-//                pointB: [x2, y2, 0],
-//                pointC: [x3, y3, 0]
-//            )
-//        case .rect(let x, let y, let w, let h):
-//            drawable = Rect(
-//                x: x,
-//                y: y,
-//                w: w,
-//                h: h
-//            )
+        case .triangle(let x1, let y1, let x2, let y2, let x3, let y3):
+            drawable = Triangle(
+                pointA: [x1, y1, 0],
+                pointB: [x2, y2, 0],
+                pointC: [x3, y3, 0]
+            )
+        case .rect(let x, let y, let w, let h):
+            drawable = Rect(
+                x: x,
+                y: y,
+                w: w,
+                h: h
+            )
         }
         
         vertexBuffer?.copyBytes(
@@ -39,5 +39,7 @@ extension Renderer {
         )
         currentOffset += drawable.offset
         drawableContext.currentDrawingGroup.appendDrawable(drawable)
+        
+        return drawable
     }
 }
