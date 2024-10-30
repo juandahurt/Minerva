@@ -24,11 +24,14 @@ class Renderer: NSObject, MTKViewDelegate {
     
     var vertexBuffer: MTLBuffer?
     var currentOffset = 0
+    var currentVertex = 0
     
     weak var delegate: RendererDelegate?
     
     private var uniforms = Uniforms()
     private var setupHasBeenCalled = false
+    
+    var commands: [RendererCommand] = []
     
     override init() {
         super.init()
@@ -67,40 +70,38 @@ class Renderer: NSObject, MTKViewDelegate {
         
         if !setupHasBeenCalled { delegate?.onSetup(); setupHasBeenCalled = true }
         
-        view.clearColor = drawableContext.backgroundColor
+        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+        renderEncoder.setRenderPipelineState(
+            LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
+        )
         
-        let viewMatrix = float4x4(translation: [0, -1, 0])
-        
-        uniforms.viewMatrix = viewMatrix
+        renderEncoder.setVertexBytes(
+            &drawableContext.currentDrawingGroup.fillColor,
+            length: MemoryLayout<SIMD3<Float>>.stride,
+            index: 11
+        )
         
         renderEncoder.setVertexBytes(
             &uniforms,
             length: MemoryLayout<Uniforms>.stride,
             index: 10
         )
-    
-        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-        renderEncoder.setRenderPipelineState(
-            LibrariesContainer.renderPipelineStateLibrary.getValue(ofKey: .default)
-        )
+
+        
         delegate?.onDraw()
         
-        for drawingGroup in drawableContext.drawingGroups {
-            // TODO: make sure the line primitive doesn't use the fill color
-            renderEncoder.setVertexBytes(
-                &drawableContext.currentDrawingGroup.fillColor,
-                length: MemoryLayout<SIMD3<Float>>.stride,
-                index: 11
-            )
-            
-            var currentVertex = 0
-            for drawable in drawingGroup.drawables {
-                renderEncoder.drawPrimitives(
-                    type: drawable.primitiveType,
-                    vertexStart: currentVertex,
-                    vertexCount: drawable.vertexCount
-                )
-                currentVertex += drawable.vertexCount
+        let viewMatrix = float4x4(translation: [0, -1, 0])
+        
+        uniforms.viewMatrix = viewMatrix
+        
+        for command in commands {
+            switch command {
+            case .shape(let shapeCommand):
+                let drawable = makeDrawable(from: shapeCommand)
+                updateVertexBuffer(using: drawable)
+                draw(drawable, using: renderEncoder)
+            case .color(let colorCommand):
+                handleColorCommand(colorCommand, with: renderEncoder, view: view)
             }
         }
         
@@ -111,5 +112,18 @@ class Renderer: NSObject, MTKViewDelegate {
         // clear drawable context
         drawableContext.clear()
         currentOffset = 0
+        commands = []
+        currentVertex = 0
+    }
+}
+
+extension Renderer {
+    func draw(_ drawable: Drawable, using renderEncoder: MTLRenderCommandEncoder) {
+        renderEncoder.drawPrimitives(
+            type: drawable.primitiveType,
+            vertexStart: currentVertex,
+            vertexCount: drawable.vertexCount
+        )
+        currentVertex += drawable.vertexCount
     }
 }

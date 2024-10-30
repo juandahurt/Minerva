@@ -24,17 +24,20 @@ class SketchView: MTKView {
         
         super.init(frame: .zero, device: device)
         
-        renderer.delegate = self
-        
         translatesAutoresizingMaskIntoConstraints = false
-        clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1) // TODO: remove
-        delegate = renderer
+        clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
         preferredFramesPerSecond = 60
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupRenderer(with commander: RendererCommander) {
+        renderer.delegate = self
+        delegate = renderer
+        commander.subordinate = renderer
     }
 }
 

@@ -8,10 +8,19 @@
 import simd
 
 extension Renderer {
-    func addDrawable(fromPrimitive primitive: Primitive) {
+    func updateVertexBuffer(using drawable: Drawable) {
+        vertexBuffer?.copyBytes(
+            from: drawable.vertices,
+            size: drawable.offset,
+            atOffset: currentOffset
+        )
+        currentOffset += drawable.offset
+    }
+    
+    func makeDrawable(from command: ShapeCommand) -> Drawable {
         let drawable: Drawable
         
-        switch primitive {
+        switch command {
         case .line(let x1, let y1, let x2, let y2):
             drawable = Line(
                 posA: [x1, y1, 0],
@@ -32,12 +41,6 @@ extension Renderer {
             )
         }
         
-        vertexBuffer?.copyBytes(
-            from: drawable.vertices,
-            size: drawable.offset,
-            atOffset: currentOffset
-        )
-        currentOffset += drawable.offset
-        drawableContext.currentDrawingGroup.appendDrawable(drawable)
+        return drawable
     }
 }

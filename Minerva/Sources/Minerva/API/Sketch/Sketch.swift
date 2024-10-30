@@ -8,6 +8,8 @@
 import Foundation
 
 open class Sketch {
+    var rendererCommander = RendererCommander()
+    
     /// Canvas width
     public var width: Float = 0
     /// Canvas height
@@ -16,6 +18,7 @@ open class Sketch {
     lazy var view: SketchView = {
         let view = SketchView()
         view.sketch = self
+        view.setupRenderer(with: rendererCommander)
         return view
     }()
     

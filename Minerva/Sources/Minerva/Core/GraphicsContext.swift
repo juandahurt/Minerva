@@ -25,12 +25,7 @@ class GraphicsContext {
 }
 
 class DrawingGroup {
-    var drawables: [Drawable] = []
     var fillColor: simd_float3 = .zero
-    
-    func appendDrawable(_ drawable: Drawable) {
-        drawables.append(drawable)
-    }
 }
 
 class DrawableContext {
