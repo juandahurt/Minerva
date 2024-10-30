@@ -97,26 +97,13 @@ class Renderer: NSObject, MTKViewDelegate {
         for command in commands {
             switch command {
             case .shape(let shapeCommand):
-                let drawable = updateVertexBuffer(usingShape: shapeCommand)
+                let drawable = makeDrawable(from: shapeCommand)
+                updateVertexBuffer(using: drawable)
                 draw(drawable, using: renderEncoder)
             }
         }
         
         view.clearColor = drawableContext.backgroundColor
-        
-//        for drawingGroup in drawableContext.drawingGroups {
-//            // TODO: make sure the line primitive doesn't use the fill color
-//            
-//            var currentVertex = 0
-//            for drawable in drawingGroup.drawables {
-//                renderEncoder.drawPrimitives(
-//                    type: drawable.primitiveType,
-//                    vertexStart: currentVertex,
-//                    vertexCount: drawable.vertexCount
-//                )
-//                currentVertex += drawable.vertexCount
-//            }
-//        }
         
         renderEncoder.endEncoding()
         commandBuffer.present(drawable)

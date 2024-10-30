@@ -8,7 +8,16 @@
 import simd
 
 extension Renderer {
-    func updateVertexBuffer(usingShape command: ShapeCommand) -> Drawable {
+    func updateVertexBuffer(using drawable: Drawable) {
+        vertexBuffer?.copyBytes(
+            from: drawable.vertices,
+            size: drawable.offset,
+            atOffset: currentOffset
+        )
+        currentOffset += drawable.offset
+    }
+    
+    func makeDrawable(from command: ShapeCommand) -> Drawable {
         let drawable: Drawable
         
         switch command {
@@ -31,14 +40,6 @@ extension Renderer {
                 h: h
             )
         }
-        
-        vertexBuffer?.copyBytes(
-            from: drawable.vertices,
-            size: drawable.offset,
-            atOffset: currentOffset
-        )
-        currentOffset += drawable.offset
-        drawableContext.currentDrawingGroup.appendDrawable(drawable)
         
         return drawable
     }
