@@ -7,6 +7,6 @@
 
 extension SketchView {
     func addPrimitive(_ primitive: Primitive) {
-        renderer.addDrawable(fromPrimitive: primitive)
+//        renderer.addDrawable(fromPrimitive: primitive)
     }
 }

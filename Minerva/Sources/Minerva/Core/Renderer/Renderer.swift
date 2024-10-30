@@ -30,6 +30,8 @@ class Renderer: NSObject, MTKViewDelegate {
     private var uniforms = Uniforms()
     private var setupHasBeenCalled = false
     
+    var commands: [RendererCommand] = []
+    
     override init() {
         super.init()
         let size = GraphicsContext.instance.device.maxBufferLength

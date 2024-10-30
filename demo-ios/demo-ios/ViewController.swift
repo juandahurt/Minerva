@@ -14,13 +14,13 @@ class MySketch1: Sketch {
     
     override func draw() {
         line(0, 100, 120, 50)
-        line(54, 400, 120, 50)
+//        line(54, 400, 120, 50)
         
-        triangle(100, 75, 40, 20, 70, 75)
-        
-        line(200, 400, 500, 100)
-        
-        x += 10
+//        triangle(100, 75, 40, 20, 70, 75)
+//        
+//        line(200, 400, 500, 100)
+//        
+//        x += 10
     }
 }
 
@@ -74,18 +74,18 @@ class MySketch2: Sketch {
     
     
     override func setup() {
-        background(40, 130, 29)
-        for _ in 0..<numParticles {
-            particles.append(.init(canvasWidth: width, canvasHeight: height))
-        }
+//        background(40, 130, 29)
+//        for _ in 0..<numParticles {
+//            particles.append(.init(canvasWidth: width, canvasHeight: height))
+//        }
     }
     
     override func draw() {
-        fill(150, 200, 100)
-        for i in particles.indices {
-            particles[i].update()
-            rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
-        }
+//        fill(150, 200, 100)
+//        for i in particles.indices {
+//            particles[i].update()
+//            rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
+//        }
     }
 }
 
