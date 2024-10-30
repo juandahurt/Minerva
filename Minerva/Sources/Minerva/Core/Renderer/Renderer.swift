@@ -100,10 +100,10 @@ class Renderer: NSObject, MTKViewDelegate {
                 let drawable = makeDrawable(from: shapeCommand)
                 updateVertexBuffer(using: drawable)
                 draw(drawable, using: renderEncoder)
+            case .color(let colorCommand):
+                handleColorCommand(colorCommand, with: renderEncoder, view: view)
             }
         }
-        
-        view.clearColor = drawableContext.backgroundColor
         
         renderEncoder.endEncoding()
         commandBuffer.present(drawable)

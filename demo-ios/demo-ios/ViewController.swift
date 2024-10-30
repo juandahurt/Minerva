@@ -71,18 +71,19 @@ class MySketch2: Sketch {
     
     
     override func setup() {
-//        background(40, 130, 29)
-//        for _ in 0..<numParticles {
-//            particles.append(.init(canvasWidth: width, canvasHeight: height))
-//        }
+        background(40, 130, 29)
+        for _ in 0..<numParticles {
+            particles.append(.init(canvasWidth: width, canvasHeight: height))
+        }
     }
     
     override func draw() {
-//        fill(150, 200, 100)
-//        for i in particles.indices {
-//            particles[i].update()
-//            rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
-//        }
+        background(11, 230, 20)
+        fill(150, 200, 100)
+        for i in particles.indices {
+            particles[i].update()
+            rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
+        }
     }
 }
 
@@ -109,9 +110,9 @@ class ViewController: UIViewController {
         container1.addSketch(sketch1)
         stackView.addArrangedSubview(container1)
         
-//        stackView.addArrangedSubview(container2)
-//        container2.addSketch(sketch2)
-//        container2.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(container2)
+        container2.addSketch(sketch2)
+        container2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

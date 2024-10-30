@@ -25,7 +25,7 @@ class SketchView: MTKView {
         super.init(frame: .zero, device: device)
         
         translatesAutoresizingMaskIntoConstraints = false
-        clearColor = .init(red: 0.2, green: 0.3, blue: 0.2, alpha: 1) // TODO: remove
+        clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         colorPixelFormat = .rgba8Unorm // TODO: maybe save this value globally?
         preferredFramesPerSecond = 60
     }
