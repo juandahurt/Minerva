@@ -9,18 +9,25 @@ import UIKit
 import Minerva
 
 class MySketch1: Sketch {
-    var x: Float = 0
-    var y: Float = 0
-    
     override func draw() {
-        line(0, 100, 120, 50)
-        line(54, 400, 120, 50)
-        triangle(100, 75, 40, 20, 70, 75)
+        translate(width / 2, height)
+        line(0, 0, 0, -200)
         
-        translate(500, 50)
-        line(200, 400, 500, 100)
-        rect(x: 100, y: 350, w: 100, h: 20)
+        rotate(45)
+        translate(0, -200)
+        line(0, 0, 0, -200)
+//        branch(depth: 2)
     }
+    
+//    func branch(depth: Int, angle: Float = 0) {
+//        guard depth > 0 else { return }
+//        rotate(angle)
+//        translate(0, -200)
+//        line(0, 0, 0, -200)
+//        
+//        branch(depth: depth - 1, angle: 45)
+//        branch(depth: depth - 1, angle: -45)
+//    }
 }
 
 struct Particle {
@@ -68,7 +75,7 @@ class MySketch2: Sketch {
     var x: Float = 30
     var y: Float = 0
     
-    let numParticles = 10
+    let numParticles = 100
     var particles: [Particle] = []
     
     
@@ -79,11 +86,11 @@ class MySketch2: Sketch {
     }
     
     override func draw() {
-        background(110, 230, 20)
-        fill(150, 200, 100)
+//        background(110, 230, 20)
+//        fill(150, 200, 100)
         for i in particles.indices {
             particles[i].update()
-            rect(x: particles[i].x, y: particles[i].y, w: 30, h: 30)
+            rect(particles[i].x, particles[i].y, 30, 30)
         }
     }
 }
@@ -111,9 +118,9 @@ class ViewController: UIViewController {
         container1.addSketch(sketch1)
         stackView.addArrangedSubview(container1)
         
-        stackView.addArrangedSubview(container2)
-        container2.addSketch(sketch2)
-        container2.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.addArrangedSubview(container2)
+//        container2.addSketch(sketch2)
+//        container2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

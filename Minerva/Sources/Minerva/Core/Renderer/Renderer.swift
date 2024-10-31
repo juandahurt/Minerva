@@ -103,16 +103,7 @@ class Renderer: NSObject, MTKViewDelegate {
             case .color(let colorCommand):
                 handleColorCommand(colorCommand, with: renderEncoder, view: view)
             case .transform(let transformCommand):
-                switch transformCommand {
-                case .translate(let translation):
-                    drawableContext.currentDrawingGroup.translation = translation
-                    uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
-                    renderEncoder.setVertexBytes(
-                        &uniforms,
-                        length: MemoryLayout<Uniforms>.stride,
-                        index: 10
-                    )
-                }
+                handleTranformCommand(transformCommand, with: renderEncoder)
             }
         }
         
@@ -140,7 +131,21 @@ extension Renderer {
     }
 }
 
-//
-//extension Renderer {
-//    func 
-//}
+
+extension Renderer {
+    func handleTranformCommand(_ command: TransformCommand, with encoder: MTLRenderCommandEncoder) {
+        switch command {
+        case .translate(let translation):
+            drawableContext.currentDrawingGroup.translation += translation
+        case .rotate(let angle):
+            drawableContext.currentDrawingGroup.rotation += angle
+        }
+        
+        uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
+        encoder.setVertexBytes(
+            &uniforms,
+            length: MemoryLayout<Uniforms>.stride,
+            index: 10
+        )
+    }
+}

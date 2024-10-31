@@ -20,6 +20,7 @@ enum ColorCommand {
 
 enum TransformCommand {
     case translate(simd_float3)
+    case rotate(Float)
 }
 
 enum RendererCommand {

@@ -26,14 +26,16 @@ class GraphicsContext {
 
 protocol Transformable {
     var translation: simd_float3 { get }
+    var rotation: Float { get } // rotation on the z axis
     var modelMatrix: float4x4 { get }
 }
 
 class DrawingGroup: Transformable {
     var fillColor: simd_float3 = .zero
     var translation: simd_float3 = .zero
+    var rotation: Float = .zero
     var modelMatrix: float4x4 {
-        .init(translation: translation)
+        .init(translation: translation) * .init(rotationZ: rotation)
     }
 }
 

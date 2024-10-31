@@ -36,7 +36,7 @@ public extension Sketch {
         )
     }
     
-    func rect(x: Float, y: Float, w: Float, h: Float) {
+    func rect(_ x: Float, _ y: Float, _ w: Float, _ h: Float) {
         rendererCommander.pushCommand(
             .shape(
                 .rect(

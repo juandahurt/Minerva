@@ -11,4 +11,10 @@ public extension Sketch {
             .transform(.translate([x, y, 0]))
         )
     }
+    
+    func rotate(_ angle: Float) {
+        rendererCommander.pushCommand(
+            .transform(.rotate(angle))
+        )
+    }
 }
