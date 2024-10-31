@@ -102,6 +102,8 @@ class Renderer: NSObject, MTKViewDelegate {
                 draw(drawable, using: renderEncoder)
             case .color(let colorCommand):
                 handleColorCommand(colorCommand, with: renderEncoder, view: view)
+            case .transform(let transformCommand):
+                handleTranformCommand(transformCommand, with: renderEncoder)
             }
         }
         
@@ -114,6 +116,7 @@ class Renderer: NSObject, MTKViewDelegate {
         currentOffset = 0
         commands = []
         currentVertex = 0
+        uniforms.modelMatrix = .init(translation: .zero)
     }
 }
 
@@ -125,5 +128,24 @@ extension Renderer {
             vertexCount: drawable.vertexCount
         )
         currentVertex += drawable.vertexCount
+    }
+}
+
+
+extension Renderer {
+    func handleTranformCommand(_ command: TransformCommand, with encoder: MTLRenderCommandEncoder) {
+        switch command {
+        case .translate(let translation):
+            drawableContext.currentDrawingGroup.translation += translation
+        case .rotate(let angle):
+            drawableContext.currentDrawingGroup.rotation += angle
+        }
+        
+        uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
+        encoder.setVertexBytes(
+            &uniforms,
+            length: MemoryLayout<Uniforms>.stride,
+            index: 10
+        )
     }
 }
