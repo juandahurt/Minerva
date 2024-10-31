@@ -16,6 +16,8 @@ class MySketch1: Sketch {
         line(0, 100, 120, 50)
         line(54, 400, 120, 50)
         triangle(100, 75, 40, 20, 70, 75)
+        
+        translate(500, 50)
         line(200, 400, 500, 100)
         rect(x: 100, y: 350, w: 100, h: 20)
     }
@@ -71,14 +73,13 @@ class MySketch2: Sketch {
     
     
     override func setup() {
-        background(40, 130, 29)
         for _ in 0..<numParticles {
             particles.append(.init(canvasWidth: width, canvasHeight: height))
         }
     }
     
     override func draw() {
-        background(11, 230, 20)
+        background(110, 230, 20)
         fill(150, 200, 100)
         for i in particles.indices {
             particles[i].update()

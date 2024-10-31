@@ -18,7 +18,12 @@ enum ColorCommand {
     case background(simd_float3)
 }
 
+enum TransformCommand {
+    case translate(simd_float3)
+}
+
 enum RendererCommand {
     case shape(ShapeCommand)
     case color(ColorCommand)
+    case transform(TransformCommand)
 }

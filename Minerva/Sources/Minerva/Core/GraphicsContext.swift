@@ -24,8 +24,17 @@ class GraphicsContext {
     }
 }
 
-class DrawingGroup {
+protocol Transformable {
+    var translation: simd_float3 { get }
+    var modelMatrix: float4x4 { get }
+}
+
+class DrawingGroup: Transformable {
     var fillColor: simd_float3 = .zero
+    var translation: simd_float3 = .zero
+    var modelMatrix: float4x4 {
+        .init(translation: translation)
+    }
 }
 
 class DrawableContext {
