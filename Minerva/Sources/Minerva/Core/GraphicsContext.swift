@@ -35,27 +35,56 @@ class DrawingGroup: Transformable {
     var translation: simd_float3 = .zero
     var rotation: Float = .zero
     var modelMatrix: float4x4 {
-        .init(translation: translation) * .init(rotationZ: rotation)
+        matrix_identity_float4x4 * .init(translation: translation) * .init(rotationZ: rotation)
+    }
+    
+    init(fillColor: simd_float3, translation: simd_float3, rotation: Float) {
+        self.fillColor = fillColor
+        self.translation = translation
+        self.rotation = rotation
+    }
+    
+    init() {
+        
     }
 }
 
 class DrawableContext {
     var drawingGroups: [DrawingGroup] = []
-    
     var backgroundColor: MTLClearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
-    
     var canvasSize: CGSize = .zero
     var currentDrawingGroup: DrawingGroup {
         get {
             if drawingGroups.isEmpty {
                 drawingGroups.append(.init())
             }
-            return drawingGroups[0] // TODO: add guard here?
+            return drawingGroups.last! // TODO: add guard here?
         }
         set {}
     }
     
+    func pushNewDrawingGroup() {
+        drawingGroups.append(
+            .init(
+                fillColor: currentDrawingGroup.fillColor,
+                translation: currentDrawingGroup.translation,
+                rotation: currentDrawingGroup.rotation
+            )
+        )
+    }
+    
+    func popDrawingGroup() {
+        guard !drawingGroups.isEmpty else { return }
+        drawingGroups.pop()
+    }
+    
     func clear() {
-        drawingGroups.removeAll()
+        drawingGroups = []
+    }
+}
+
+extension Array where Element: DrawingGroup {
+    mutating func pop() {
+        let _ = popLast()
     }
 }
