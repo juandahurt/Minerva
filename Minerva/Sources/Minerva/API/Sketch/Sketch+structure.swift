@@ -19,4 +19,16 @@ public extension Sketch {
             .structure(.pop)
         )
     }
+    
+    func loop() {
+        rendererCommander.pushCommand(
+            .structure(.loop)
+        )
+    }
+    
+    func noLoop() {
+        rendererCommander.pushCommand(
+            .structure(.noLoop)
+        )
+    }
 }

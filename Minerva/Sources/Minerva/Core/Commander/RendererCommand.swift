@@ -25,6 +25,7 @@ enum TransformCommand {
 
 enum StructureCommand {
     case push, pop
+    case loop, noLoop
 }
 
 enum RendererCommand {

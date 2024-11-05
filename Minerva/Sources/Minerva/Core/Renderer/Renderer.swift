@@ -110,20 +110,7 @@ class Renderer: NSObject, MTKViewDelegate {
             case .transform(let transformCommand):
                 handleTranformCommand(transformCommand, with: renderEncoder)
             case .structure(let structureCommand):
-                switch structureCommand {
-                case .push:
-                    drawableContext.pushNewDrawingGroup()
-                case .pop:
-                    drawableContext.popDrawingGroup()
-                    uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
-                }
-                renderEncoder.setVertexBytes(
-                    &uniforms,
-                    length: MemoryLayout<Uniforms>.stride,
-                    index: 10
-                )
-                break
-                
+                handleStructureCommand(structureCommand, with: renderEncoder, view: view)
             }
         }
         
@@ -162,6 +149,27 @@ extension Renderer {
         }
         
         uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
+        encoder.setVertexBytes(
+            &uniforms,
+            length: MemoryLayout<Uniforms>.stride,
+            index: 10
+        )
+    }
+}
+
+extension Renderer {
+    func handleStructureCommand(_ command: StructureCommand, with encoder: MTLRenderCommandEncoder, view: MTKView) {
+        switch command {
+        case .push:
+            drawableContext.pushNewDrawingGroup()
+        case .pop:
+            drawableContext.popDrawingGroup()
+            uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
+        case .loop:
+            view.isPaused = false
+        case .noLoop:
+            view.isPaused = true
+        }
         encoder.setVertexBytes(
             &uniforms,
             length: MemoryLayout<Uniforms>.stride,
