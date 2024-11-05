@@ -14,6 +14,7 @@
 		2FC1AA2C2CBAF94D00537BCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC1AA2A2CBAF94D00537BCF /* Main.storyboard */; };
 		2FC1AA2E2CBAF94E00537BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC1AA2D2CBAF94E00537BCF /* Assets.xcassets */; };
 		2FC1AA312CBAF94E00537BCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC1AA2F2CBAF94E00537BCF /* LaunchScreen.storyboard */; };
+		82FC71992CD53A8500DC5867 /* FractalTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC71982CD53A8500DC5867 /* FractalTree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		2FC1AA2D2CBAF94E00537BCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FC1AA302CBAF94E00537BCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2FC1AA322CBAF94E00537BCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82FC71982CD53A8500DC5867 /* FractalTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractalTree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		2FC1AA232CBAF94D00537BCF /* demo-ios */ = {
 			isa = PBXGroup;
 			children = (
+				82FC71982CD53A8500DC5867 /* FractalTree.swift */,
 				2FC1AA242CBAF94D00537BCF /* AppDelegate.swift */,
 				2FC1AA262CBAF94D00537BCF /* SceneDelegate.swift */,
 				2FC1AA282CBAF94D00537BCF /* ViewController.swift */,
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FC1AA292CBAF94D00537BCF /* ViewController.swift in Sources */,
+				82FC71992CD53A8500DC5867 /* FractalTree.swift in Sources */,
 				2FC1AA252CBAF94D00537BCF /* AppDelegate.swift in Sources */,
 				2FC1AA272CBAF94D00537BCF /* SceneDelegate.swift in Sources */,
 			);

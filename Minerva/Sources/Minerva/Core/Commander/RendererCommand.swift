@@ -23,8 +23,13 @@ enum TransformCommand {
     case rotate(Float)
 }
 
+enum StructureCommand {
+    case push, pop
+}
+
 enum RendererCommand {
     case shape(ShapeCommand)
     case color(ColorCommand)
     case transform(TransformCommand)
+    case structure(StructureCommand)
 }

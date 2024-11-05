@@ -97,6 +97,11 @@ class Renderer: NSObject, MTKViewDelegate {
         for command in commands {
             switch command {
             case .shape(let shapeCommand):
+                renderEncoder.setVertexBytes(
+                    &uniforms,
+                    length: MemoryLayout<Uniforms>.stride,
+                    index: 10
+                )
                 let drawable = makeDrawable(from: shapeCommand)
                 updateVertexBuffer(using: drawable)
                 draw(drawable, using: renderEncoder)
@@ -104,6 +109,21 @@ class Renderer: NSObject, MTKViewDelegate {
                 handleColorCommand(colorCommand, with: renderEncoder, view: view)
             case .transform(let transformCommand):
                 handleTranformCommand(transformCommand, with: renderEncoder)
+            case .structure(let structureCommand):
+                switch structureCommand {
+                case .push:
+                    drawableContext.pushNewDrawingGroup()
+                case .pop:
+                    drawableContext.popDrawingGroup()
+                    uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
+                }
+                renderEncoder.setVertexBytes(
+                    &uniforms,
+                    length: MemoryLayout<Uniforms>.stride,
+                    index: 10
+                )
+                break
+                
             }
         }
         
@@ -116,7 +136,7 @@ class Renderer: NSObject, MTKViewDelegate {
         currentOffset = 0
         commands = []
         currentVertex = 0
-        uniforms.modelMatrix = .init(translation: .zero)
+        uniforms.modelMatrix = matrix_identity_float4x4
     }
 }
 
@@ -136,9 +156,9 @@ extension Renderer {
     func handleTranformCommand(_ command: TransformCommand, with encoder: MTLRenderCommandEncoder) {
         switch command {
         case .translate(let translation):
-            drawableContext.currentDrawingGroup.translation += translation
+            drawableContext.currentDrawingGroup.modelMatrix *= .init(translation: translation)
         case .rotate(let angle):
-            drawableContext.currentDrawingGroup.rotation += angle
+            drawableContext.currentDrawingGroup.modelMatrix *= .init(rotationZ: angle)
         }
         
         uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
