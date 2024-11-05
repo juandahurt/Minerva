@@ -25,23 +25,16 @@ class GraphicsContext {
 }
 
 protocol Transformable {
-    var translation: simd_float3 { get }
-    var rotation: Float { get } // rotation on the z axis
     var modelMatrix: float4x4 { get }
 }
 
 class DrawingGroup: Transformable {
     var fillColor: simd_float3 = .zero
-    var translation: simd_float3 = .zero
-    var rotation: Float = .zero
-    var modelMatrix: float4x4 {
-        matrix_identity_float4x4 * .init(translation: translation) * .init(rotationZ: rotation)
-    }
+    var modelMatrix: float4x4 = matrix_identity_float4x4
     
-    init(fillColor: simd_float3, translation: simd_float3, rotation: Float) {
+    init(fillColor: simd_float3, modelMatrix: float4x4) {
         self.fillColor = fillColor
-        self.translation = translation
-        self.rotation = rotation
+        self.modelMatrix = modelMatrix
     }
     
     init() {
@@ -67,8 +60,7 @@ class DrawableContext {
         drawingGroups.append(
             .init(
                 fillColor: currentDrawingGroup.fillColor,
-                translation: currentDrawingGroup.translation,
-                rotation: currentDrawingGroup.rotation
+                modelMatrix: currentDrawingGroup.modelMatrix
             )
         )
     }
