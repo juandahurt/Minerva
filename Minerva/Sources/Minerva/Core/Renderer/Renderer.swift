@@ -156,9 +156,9 @@ extension Renderer {
     func handleTranformCommand(_ command: TransformCommand, with encoder: MTLRenderCommandEncoder) {
         switch command {
         case .translate(let translation):
-            drawableContext.currentDrawingGroup.translation += translation
+            drawableContext.currentDrawingGroup.modelMatrix *= .init(translation: translation)
         case .rotate(let angle):
-            drawableContext.currentDrawingGroup.rotation += angle
+            drawableContext.currentDrawingGroup.modelMatrix *= .init(rotationZ: angle)
         }
         
         uniforms.modelMatrix = drawableContext.currentDrawingGroup.modelMatrix
