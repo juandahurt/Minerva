@@ -8,12 +8,24 @@
 import UIKit
 import Minerva
 
+struct Example {
+    var title: String
+    var sketch: Sketch
+}
+
 class ViewController: UIViewController {
     private var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
+    
+    var examples: [Example] = [
+        .init(
+            title: "Fractal kinda organic tree",
+            sketch: FractalTree()
+        )
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,14 +52,14 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        examples.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.selectionStyle = .none
         var config = cell.defaultContentConfiguration()
-        config.text = "Fractal Tree"
+        config.text = examples[indexPath.row].title
         cell.contentConfiguration = config
         return cell
     }
@@ -55,7 +67,7 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ExampleViewController(sketch: FractalTree())
+        let vc = ExampleViewController(sketch: examples[indexPath.row].sketch)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
