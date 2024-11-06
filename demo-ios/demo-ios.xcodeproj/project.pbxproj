@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F9EADFB2CDAC559004169C2 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EADFA2CDAC555004169C2 /* ExampleViewController.swift */; };
 		2FA5AB662CD14130005EB826 /* Minerva in Frameworks */ = {isa = PBXBuildFile; productRef = 2FA5AB652CD14130005EB826 /* Minerva */; };
 		2FC1AA252CBAF94D00537BCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1AA242CBAF94D00537BCF /* AppDelegate.swift */; };
 		2FC1AA272CBAF94D00537BCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1AA262CBAF94D00537BCF /* SceneDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F9EADFA2CDAC555004169C2 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		2FC1AA212CBAF94D00537BCF /* demo-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "demo-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC1AA242CBAF94D00537BCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FC1AA262CBAF94D00537BCF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F9EADF92CDAC14D004169C2 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				82FC71982CD53A8500DC5867 /* FractalTree.swift */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
 		2FA5AB642CD14130005EB826 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +78,8 @@
 		2FC1AA232CBAF94D00537BCF /* demo-ios */ = {
 			isa = PBXGroup;
 			children = (
-				82FC71982CD53A8500DC5867 /* FractalTree.swift */,
+				2F9EADF92CDAC14D004169C2 /* Examples */,
+				2F9EADFA2CDAC555004169C2 /* ExampleViewController.swift */,
 				2FC1AA242CBAF94D00537BCF /* AppDelegate.swift */,
 				2FC1AA262CBAF94D00537BCF /* SceneDelegate.swift */,
 				2FC1AA282CBAF94D00537BCF /* ViewController.swift */,
@@ -161,6 +172,7 @@
 				82FC71992CD53A8500DC5867 /* FractalTree.swift in Sources */,
 				2FC1AA252CBAF94D00537BCF /* AppDelegate.swift in Sources */,
 				2FC1AA272CBAF94D00537BCF /* SceneDelegate.swift in Sources */,
+				2F9EADFB2CDAC559004169C2 /* ExampleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

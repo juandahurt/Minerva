@@ -24,7 +24,7 @@ class FractalTree: Sketch {
     func branch(height: Float) {
         line(0, 0, 0, -height)
         translate(0, -height)
-        guard height > 18 else {
+        guard height > 50 else {
             let alpha = Float.random(in: 0...1)
             if alpha > 0.4 {
                 rect(0, 0, 10, .random(in: 1...8))
