@@ -8,35 +8,66 @@
 import UIKit
 import Minerva
 
+struct Example {
+    var title: String
+    var sketch: Sketch
+}
+
 class ViewController: UIViewController {
-    let sketch1 = FractalTree()
+    private var tableView: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
     
-    let container1 = UIView()
-    
-    let stackView = UIStackView()
+    var examples: [Example] = [
+        .init(
+            title: "Fractal kinda organic tree",
+            sketch: FractalTree()
+        )
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .lightGray
+        title = "Minerva"
         
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fillProportionally
+        tableView.dataSource = self
+        tableView.delegate = self
         
-        view.addSubview(stackView)
-        
-        container1.translatesAutoresizingMaskIntoConstraints = false
-        container1.addSketch(sketch1)
-        stackView.addArrangedSubview(container1)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }
 
+extension ViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        examples.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.selectionStyle = .none
+        var config = cell.defaultContentConfiguration()
+        config.text = examples[indexPath.row].title
+        cell.contentConfiguration = config
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ExampleViewController(sketch: examples[indexPath.row].sketch)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
